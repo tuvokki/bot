@@ -5,17 +5,18 @@ import nltk
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, CreateView, FormView
-from BotApp.models import IntentPointer
+from BotApp.models import IntentPointer, Intent
 from BotApp.forms import AnswerForm
 
 logger = logging.getLogger(__name__)
 
 
 class IntentListView(ListView):
-    context_object_name = 'intent_pointer_list'
+    context_object_name = 'intent_list'
+    template_name = 'BotApp/intent_list.html'
 
     def get_queryset(self):
-        return IntentPointer.objects.all().prefetch_related('intent')
+        return Intent.objects.all()#.prefetch_related('intentpointer_set')
 
 
 class SearchView(TemplateView):
@@ -54,7 +55,7 @@ class SearchView(TemplateView):
 class NewAnswerView(FormView):
     template_name = 'BotApp/new_answer.html'
     form_class = AnswerForm
-    success_url = 'search'
+    success_url = '/'
 
     def form_valid(self, form):
         return super(NewAnswerView, self).form_valid(form)

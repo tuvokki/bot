@@ -3,29 +3,46 @@
 {% load filters %}
 
 {% block content_container %}
-    <h1 class="content-subhead">
-        {% if question %}Search results{% else %}Ask a question{% endif %}
-    </h1>
-
-    <section class="post {% if not question %}hidden{% endif %}">
-        <header class="post-header">
-            <h2 class="post-title">{{ question }}</h2>
-
-            <p class="post-meta">
-            Found words:
-            {% for pointer in pointers %}
-                {{ pointer }}&nbsp;
-            {% endfor %}
-            </p>
-        </header>
-
-        <div class="post-description">
-            <p>
-                <h4>Answers</h4>
-                {% for intent in intents %}
-                    {{ intent.intent.answer }}
-                {% endfor %}
-            </p>
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+        <div class="header">
+            <h1 class="brand-title">Ask a bot</h1>
+            <h2 class="brand-tagline">Get your infos here</h2>
+            <form class="pure-form" method="post">
+                {% csrf_token %}
+                <input type="text" name="question" class="pure-input-2-3" placeholder="What do you want to know?" />
+            </form>
         </div>
-    </section>
+    </div>
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            <div class="posts">
+                <h1 class="content-subhead">
+                    {% if question %}Search results{% else %}Ask a question{% endif %}
+                </h1>
+
+                <section class="post {% if not question %}hidden{% endif %}">
+                    <header class="post-header">
+                        <h2 class="post-title">{{ question }}</h2>
+
+                        <p class="post-meta">
+                        Found words:
+                        {% for pointer in pointers %}
+                            {{ pointer }}&nbsp;
+                        {% endfor %}
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>
+                            <h4>Answers</h4>
+                            {% for intent in intents %}
+                                {{ intent.intent.answer }}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 {% endblock %}
