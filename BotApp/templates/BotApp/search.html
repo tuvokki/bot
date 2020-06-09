@@ -2,69 +2,31 @@
 
 {% load filters %}
 
-{#{% block content_container %}#}
-{#<div class="splash-container">#}
-{#    <div class="splash">#}
-{#        <h1 class="splash-head">Ask</h1>#}
-{#        <p class="splash-subhead">#}
-{#            You wonder, we'll help you out#}
-{#        </p>#}
-{#        <p>#}
-{#            <form class="pure-form" method="post">#}
-{#                {% csrf_token %}#}
-{#                <input type="text" name="question" class="pure-input-2-3" placeholder="What do you want to know?" />#}
-{#            </form>#}
-{#        </p>#}
-{#    </div>#}
-{#</div>#}
-{#<div class="content pure-u-1 pure-u-md-3-4">#}
-{#    {% for syn in request.session.list_syn %}#}
-{#        {{ syn }}<br/>#}
-{#        {% for intent in request.session.list_syn|get_item:syn %}#}
-{#            {{ intent }}<br/>#}
-{#        {% endfor %}#}
-{#        <hr>#}
-{#    {% endfor %}#}
-{#</div>#}
-{#{% endblock %}#}
-
-
 {% block content_container %}
-    <h1 class="content-subhead">Search results</h1>
+    <h1 class="content-subhead">
+        {% if question %}Search results{% else %}Ask a question{% endif %}
+    </h1>
 
-    <!-- A single blog post -->
-    <section class="post">
+    <section class="post {% if not question %}hidden{% endif %}">
         <header class="post-header">
             <h2 class="post-title">{{ question }}</h2>
 
             <p class="post-meta">
-                Some meta data on this result
+            {% for noun in nouns %}
+                {{ noun.0 }}&nbsp;
+            {% endfor %}
+            {% for noun in nouns %}
+                {{ noun.0 }}&nbsp;
+            {% endfor %}
             </p>
         </header>
 
         <div class="post-description">
             <p>
-            <h4>Answers</h4>
-            {% for intent in intents %}
-                {{ intent.intent.answer }}&nbsp;
-            {% endfor %}
-            <hr>
-            <h4>Nouns</h4>
-            {% for noun in nouns %}
-                {{ noun.0 }}&nbsp;
-            {% endfor %}
-            <hr>
-            <h4>Verbs</h4>
-            {% for verb in verbs %}
-                {{ verb.0 }}&nbsp;
-            {% endfor %}
-{#            {% for syn in list_syn %}#}
-{#                {{ syn }}<br/>#}
-{#                {% for intent in list_syn|get_item:syn %}#}
-{#                    {{ intent }}<br/>#}
-{#                {% endfor %}#}
-{#                <hr>#}
-{#            {% endfor %}#}
+                <h4>Answers</h4>
+                {% for intent in intents %}
+                    {{ intent.intent.answer }}
+                {% endfor %}
             </p>
         </div>
     </section>

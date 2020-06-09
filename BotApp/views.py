@@ -1,12 +1,10 @@
-import re
-
 import nltk
-from nltk.corpus import wordnet
 
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView, TemplateView
-from BotApp.models import Intent, IntentPointer
+from django.views.generic import ListView, TemplateView, CreateView, FormView
+from BotApp.models import IntentPointer
+from BotApp.forms import AnswerForm
 
 
 class IntentListView(ListView):
@@ -37,20 +35,6 @@ class SearchView(TemplateView):
             verbs = list(filter(lambda x: x[1] == 'VB', pos_tagged))
             print(f"verbs {verbs}")
 
-            list_syn = {}
-            for word in tokens:
-                synonyms = []
-                for syn in wordnet.synsets(word):
-                    for lem in syn.lemmas():
-                        # Remove any special characters from synonym strings
-                        lem_name = re.sub('[^A-Za-z0-9]+', ' ', lem.name())
-                        synonyms.append(lem_name)
-
-                # list_syn[word] = set(synonyms)
-                list_syn[word] = synonyms
-
-            # print(list_syn)
-            context['list_syn'] = list_syn
             context['nouns'] = nouns
             context['verbs'] = verbs
             intents = list(IntentPointer.objects.filter(pointer__in=[noun[0] for noun in nouns]).prefetch_related('intent'))
@@ -62,3 +46,12 @@ class SearchView(TemplateView):
         if self.question:
             del request.session['question']
         return super(SearchView, self).get(request, *args, **kwargs)
+
+
+class NewAnswerView(FormView):
+    template_name = 'BotApp/new_answer.html'
+    form_class = AnswerForm
+    success_url = 'search'
+
+    def form_valid(self, form):
+        return super(NewAnswerView, self).form_valid(form)
