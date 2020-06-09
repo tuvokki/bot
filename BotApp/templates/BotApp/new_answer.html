@@ -1,6 +1,36 @@
-Add your new answer here buddy
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+{% extends 'base.html' %}
+
+{% block content_container %}
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+        <div class="header">
+            <h1 class="brand-title">Add a new</h1>
+            <h2 class="brand-tagline">Answer and keywords</h2>
+        </div>
+    </div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            <div class="posts">
+                <h1 class="content-subhead">Add your new answer here buddy</h1>
+
+                <section class="post">
+                    <header class="post-header">
+                        <h2 class="post-title">New answer</h2>
+                        <p class="post-meta">Just make something up</p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" value="Save">
+                        </form>
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

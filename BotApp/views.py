@@ -16,7 +16,7 @@ class IntentListView(ListView):
     template_name = 'BotApp/intent_list.html'
 
     def get_queryset(self):
-        return Intent.objects.all()#.prefetch_related('intentpointer_set')
+        return Intent.objects.all()
 
 
 class SearchView(TemplateView):
@@ -55,7 +55,15 @@ class SearchView(TemplateView):
 class NewAnswerView(FormView):
     template_name = 'BotApp/new_answer.html'
     form_class = AnswerForm
-    success_url = '/'
+    success_url = '/list/'
 
     def form_valid(self, form):
+        if not form.cleaned_data['intent']:
+            a_name = form.cleaned_data['keywords'].replace(', ', '')
+            intent = Intent.objects.create(name=a_name, answer=form.cleaned_data['answer'])
+        else:
+            intent = Intent.objects.get(name=form.cleaned_data['intent'])
+
+        for pointer in form.cleaned_data['keywords'].replace(',','').split():
+            IntentPointer.objects.create(intent=intent, pointer=pointer)
         return super(NewAnswerView, self).form_valid(form)
