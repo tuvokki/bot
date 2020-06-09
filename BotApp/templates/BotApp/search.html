@@ -12,11 +12,9 @@
             <h2 class="post-title">{{ question }}</h2>
 
             <p class="post-meta">
-            {% for noun in nouns %}
-                {{ noun.0 }}&nbsp;
-            {% endfor %}
-            {% for noun in nouns %}
-                {{ noun.0 }}&nbsp;
+            Found words:
+            {% for pointer in pointers %}
+                {{ pointer }}&nbsp;
             {% endfor %}
             </p>
         </header>

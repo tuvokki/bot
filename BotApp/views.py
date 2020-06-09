@@ -1,3 +1,5 @@
+import logging
+
 import nltk
 
 from django.http import HttpResponseRedirect
@@ -5,6 +7,8 @@ from django.urls import reverse
 from django.views.generic import ListView, TemplateView, CreateView, FormView
 from BotApp.models import IntentPointer
 from BotApp.forms import AnswerForm
+
+logger = logging.getLogger(__name__)
 
 
 class IntentListView(ListView):
@@ -27,17 +31,16 @@ class SearchView(TemplateView):
         if self.question:
             context['question'] = self.question
             tokens = nltk.word_tokenize(text=self.question)
-            print(tokens)
             pos_tagged = nltk.pos_tag(tokens)
-            print(f"pos_tagged {pos_tagged}")
+            logger.debug(f"pos_tagged {pos_tagged}")
             nouns = list(filter(lambda x: x[1] == 'NN', pos_tagged))
-            print(f"nouns {nouns}")
+            logger.debug(f"nouns {nouns}")
             verbs = list(filter(lambda x: x[1] == 'VB', pos_tagged))
-            print(f"verbs {verbs}")
+            logger.debug(f"verbs {verbs}")
 
-            context['nouns'] = nouns
-            context['verbs'] = verbs
-            intents = list(IntentPointer.objects.filter(pointer__in=[noun[0] for noun in nouns]).prefetch_related('intent'))
+            pointers = [noun[0] for noun in nouns] + [verb[0] for verb in verbs]
+            intents = list(IntentPointer.objects.filter(pointer__in=pointers).prefetch_related('intent'))
+            context['pointers'] = pointers
             context['intents'] = intents
         return context
 
