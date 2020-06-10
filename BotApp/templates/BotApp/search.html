@@ -37,7 +37,7 @@
                         <p>
                             <h4>Answers</h4>
                             {% for intent in intents %}
-                                {{ intent.intent.answer }}
+                                {{ forloop.counter }} {{ intent.intent.answer }}<br/>
                             {% endfor %}
                         </p>
                     </div>
