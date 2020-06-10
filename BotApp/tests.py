@@ -1,10 +1,10 @@
 import json
 
 from django.test import TestCase
-from django.urls import reverse
-import backend
 from django.test.client import RequestFactory
+from django.urls import reverse
 
+import backend
 from BotApp.models import Intent, IntentPointer
 
 

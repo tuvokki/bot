@@ -1,6 +1,8 @@
-import click
-import backend
 import sqlite3
+
+import click
+
+import backend
 
 
 @click.command()

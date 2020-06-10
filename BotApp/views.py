@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.views.generic import ListView, TemplateView, FormView
 
 import backend
-from BotApp.models import IntentPointer, Intent
 from BotApp.forms import AnswerForm
+from BotApp.models import IntentPointer, Intent
 
 logger = logging.getLogger(__name__)
 
@@ -56,6 +56,6 @@ class NewAnswerView(FormView):
         else:
             intent = Intent.objects.get(name=form.cleaned_data['intent'])
 
-        for pointer in form.cleaned_data['keywords'].replace(',','').split():
+        for pointer in form.cleaned_data['keywords'].replace(',', '').split():
             IntentPointer.objects.create(intent=intent, pointer=pointer)
         return super(NewAnswerView, self).form_valid(form)

@@ -2,7 +2,6 @@ import logging
 
 import nltk
 
-
 logger = logging.getLogger(__name__)
 
 

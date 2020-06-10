@@ -9,7 +9,7 @@
             <h2 class="brand-tagline">Get your infos here</h2>
             <form class="pure-form" method="post">
                 {% csrf_token %}
-                <input type="text" name="question" class="pure-input-2-3" placeholder="What do you want to know?" />
+                <input type="text" name="question" class="pure-input-2-3" placeholder="What do you want to know?"/>
             </form>
         </div>
     </div>
@@ -26,19 +26,19 @@
                         <h2 class="post-title">{{ question }}</h2>
 
                         <p class="post-meta">
-                        Found words:
-                        {% for pointer in pointers %}
-                            {{ pointer }}&nbsp;
-                        {% endfor %}
+                            Found words:
+                            {% for pointer in pointers %}
+                                {{ pointer }}&nbsp;
+                            {% endfor %}
                         </p>
                     </header>
 
                     <div class="post-description">
                         <p>
-                            <h4>Answers</h4>
-                            {% for intent in intents %}
-                                {{ forloop.counter }} {{ intent.intent.answer }}<br/>
-                            {% endfor %}
+                        <h4>Answers</h4>
+                        {% for intent in intents %}
+                            {{ forloop.counter }} {{ intent.intent.answer }}<br/>
+                        {% endfor %}
                         </p>
                     </div>
                 </section>
