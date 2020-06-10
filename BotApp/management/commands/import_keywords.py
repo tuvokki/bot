@@ -1,7 +1,7 @@
 import csv
 from django.core.management import BaseCommand
 
-from BotApp.models import IntentPointer
+from BotApp.models import IntentPointer, Intent
 
 
 class Command(BaseCommand):
@@ -15,7 +15,8 @@ class Command(BaseCommand):
         with open(path, 'rt') as f:
             reader = csv.reader(f, dialect='excel')
             for row in reader:
-                pointer = IntentPointer.objects.create(
-                    # attr1=row[0]
-                    # attr2=row[1]
-                )
+                print(row)
+                # pointer = IntentPointer.objects.create(
+                #     # attr1=row[0]
+                #     # attr2=row[1]
+                # )

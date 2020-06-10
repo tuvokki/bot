@@ -1,4 +1,3 @@
-import json
 import unittest
 
 import requests
@@ -17,8 +16,8 @@ class TestQuestion(unittest.TestCase):
         question_data = {'question': self.question}
         resp = requests.get('http://0.0.0.0:8000/api/search',
                             params=question_data)
-        self.assertEqual(resp.status_code, 200)
         reps_data = resp.json()
+        self.assertEqual(resp.status_code, 200, 'Is the backend running?')
         self.assertEqual(len(reps_data['answers']), 2)
 
     if __name__ == '__main__':
