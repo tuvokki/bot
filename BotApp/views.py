@@ -1,10 +1,8 @@
 import logging
 
-import nltk
-
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import ListView, TemplateView, CreateView, FormView
+from django.views.generic import ListView, TemplateView, FormView
 
 import backend
 from BotApp.models import IntentPointer, Intent
