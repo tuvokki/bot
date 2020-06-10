@@ -5,6 +5,8 @@ import nltk
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, CreateView, FormView
+
+import backend
 from BotApp.models import IntentPointer, Intent
 from BotApp.forms import AnswerForm
 
@@ -31,15 +33,7 @@ class SearchView(TemplateView):
         context = super(SearchView, self).get_context_data()
         if self.question:
             context['question'] = self.question
-            tokens = nltk.word_tokenize(text=self.question)
-            pos_tagged = nltk.pos_tag(tokens)
-            logger.debug(f"pos_tagged {pos_tagged}")
-            nouns = list(filter(lambda x: x[1] == 'NN', pos_tagged))
-            logger.debug(f"nouns {nouns}")
-            verbs = list(filter(lambda x: x[1] == 'VB', pos_tagged))
-            logger.debug(f"verbs {verbs}")
-
-            pointers = [noun[0] for noun in nouns] + [verb[0] for verb in verbs]
+            pointers = backend.get_pointers_from_question(self.question)
             intents = list(IntentPointer.objects.filter(pointer__in=pointers).prefetch_related('intent'))
             context['pointers'] = pointers
             context['intents'] = intents

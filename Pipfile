@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 django = "*"
 nltk = "*"
+click = "*"
 
 [requires]
 python_version = "3.7"
