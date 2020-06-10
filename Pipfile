@@ -9,6 +9,8 @@ verify_ssl = true
 django = "*"
 nltk = "*"
 click = "*"
+django-generic-json-views = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"
