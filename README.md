@@ -19,4 +19,14 @@ Logging in to the admin can be done with:
     username: wouter
     password: 1qaz2wsx
 
+#### Importing questions
+Create a csv file with the following format:
+
+    answer,intent_name,pointers|separated|by|pipes
+
+Read the file with the following manage-command:
+
+    ./manage.py import_keywords --path ./data.csv
+
+You can add comments by starting a line with a `#`
  

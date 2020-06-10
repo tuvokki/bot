@@ -1,1 +1,4 @@
-test, test, test
+#answer,intent_name,pointers|separated|by|pipes
+The sweetest beer we have is almost undrinkable,sweetbeer,honey|sugar|sweet
+We have the best IPA's in town,ipasintown,IPA|bitter|hoppy|hop|hipster
+A lot of beers are Belgian,belgianbeers,country|belgium|trappist
