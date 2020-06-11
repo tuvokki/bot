@@ -29,4 +29,23 @@ Read the file with the following manage-command:
     ./manage.py import_keywords --path ./data.csv
 
 You can add comments by starting a line with a `#`
- 
+
+#### CLI usage
+Besides running as a Django web UI a CLI is also provided. Usage as follows:
+
+    (pipenv) # python cli.py
+    > Hello, how can I help you?: [Type your question here]
+
+Using synonyms is also possible:
+
+    (pipenv) # python cli.py --use_synonyms True
+
+#### Running tests
+There is a set of tests which can be run as follows:
+
+    (pipenv) # python -m unittest tests.py
+
+Django based tests can be run with the manage command:
+
+    (pipenv) # ./manage.py test
+
