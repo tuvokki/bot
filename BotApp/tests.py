@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
-import backend
+from Wernicke import backend
 from BotApp.models import Intent, IntentPointer
 
 

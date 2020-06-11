@@ -155,6 +155,21 @@ h3 {
     background: none;
 }
 
+.sidebar-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: right;
+}
+
+.sidebar-footer a {
+    margin: 0 2em 1em 0;
+}
+
+.button-small {
+    font-size: 85%;
+}
+
 @media (min-width: 48em) {
     .content {
         padding: 2em 3em 0;

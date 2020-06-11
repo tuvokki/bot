@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, FormView
 
-import backend
+from Wernicke import backend
 from BotApp.forms import AnswerForm
 from BotApp.models import IntentPointer, Intent
 
@@ -25,6 +25,8 @@ class SearchView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         request.session['question'] = request.POST['question']
+        if 'use-synonyms' in request.POST:
+            request.session['use_synonyms'] = True
         return HttpResponseRedirect(reverse('search'))
 
     def get_context_data(self, **kwargs):
@@ -32,6 +34,9 @@ class SearchView(TemplateView):
         if self.question:
             context['question'] = self.question
             pointers = backend.get_pointers_from_question(self.question)
+            if self.request.session.get('use_synonyms', None):
+                pointers = backend.get_synonyms_from_words(pointers)
+                del self.request.session['use_synonyms']
             intents = list(IntentPointer.objects.filter(pointer__in=pointers).prefetch_related('intent'))
             context['pointers'] = pointers
             context['intents'] = intents

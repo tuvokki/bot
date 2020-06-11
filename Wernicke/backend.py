@@ -1,6 +1,8 @@
 import logging
+import re
 
 import nltk
+from nltk.corpus import wordnet
 
 logger = logging.getLogger(__name__)
 
@@ -16,3 +18,13 @@ def get_pointers_from_question(question):
 
     pointers = [noun[0] for noun in nouns] + [verb[0] for verb in verbs]
     return pointers
+
+
+def get_synonyms_from_words(words):
+    synonym_list = []
+    for word in words:
+        for synset in wordnet.synsets(word):
+            for lemma in synset.lemmas():
+                if not lemma.name() in synonym_list:
+                    synonym_list.append(lemma.name())
+    return synonym_list

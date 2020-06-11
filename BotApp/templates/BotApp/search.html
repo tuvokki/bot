@@ -9,8 +9,16 @@
             <h2 class="brand-tagline">Get your infos here</h2>
             <form class="pure-form" method="post">
                 {% csrf_token %}
-                <input type="text" name="question" class="pure-input-2-3" placeholder="What do you want to know?"/>
+                <input type="text" name="question" class="pure-input-2-3" placeholder="What do you want to know?"/><br/>
+                <label for="use-synonyms">
+                    <input type="checkbox" name="use-synonyms" />Use synonyms</label>
+                    <button type="submit" class="pure-button pure-button-primary">Go</button>
             </form>
+        </div>
+        <div class="sidebar-footer">
+            <a href="{% url 'search' %}" class="button-small pure-button pure-button-primary">Search</a>
+            <a href="{% url 'intent-create' %}" class="button-small pure-button pure-button-primary">Add answer</a>
+            <a href="{% url 'intent-list' %}" class="button-small pure-button pure-button-primary">List all</a>
         </div>
     </div>
 

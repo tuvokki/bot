@@ -1,6 +1,6 @@
 from json_views.views import JSONDataView
 
-import backend
+from Wernicke import backend
 from BotApp.models import IntentPointer
 
 
