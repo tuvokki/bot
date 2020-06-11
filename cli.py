@@ -6,11 +6,15 @@ from Wernicke import backend
 
 
 @click.command()
+@click.option('--use_synonyms', default=False, help='Use synonyms.')
 @click.option('--question', prompt='Hello, how can I help you?',
               help='The question.')
-def bot(question):
+def bot(question, use_synonyms):
     click.echo(f"So you want to know: {question}")
     pointers = backend.get_pointers_from_question(question)
+    if use_synonyms:
+        pointers = backend.get_synonyms_from_words(pointers)
+
     try:
         conn = sqlite3.connect('db.sqlite3')
         cursor = conn.cursor()
