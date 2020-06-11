@@ -26,7 +26,7 @@ Create a csv file with the following format:
 
 Read the file with the following manage-command:
 
-    ./manage.py import_keywords --path ./data.csv
+    (pipenv) # ./manage.py import_keywords --path ./data.csv
 
 You can add comments by starting a line with a `#`
 
